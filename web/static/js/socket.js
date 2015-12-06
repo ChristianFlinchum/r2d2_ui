@@ -54,7 +54,31 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+
+let channel = socket.channel("motors:drive", {})
+let ldrive = $("#left-drive")
+let rdrive = $("#right-drive")
+
+ldrive.on("mousedown", event => {
+  console.log("sending drive_left")
+  channel.push("drive_left", {body: "test"})
+})
+
+rdrive.on("mousedown", event => {
+  console.log("sending drive_right")
+  channel.push("drive_right", {body: "test"})
+})
+
+ldrive.on("mouseup", event => {
+  console.log("sending stop_left")
+  channel.push("stop_left", {body: "test"})
+})
+
+rdrive.on("mouseup", event => {
+  console.log("sending stop_right")
+  channel.push("stop_right", {body: "test"})
+})
+
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })

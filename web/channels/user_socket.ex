@@ -2,7 +2,7 @@ defmodule R2d2Ui.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", R2d2Ui.RoomChannel
+  channel "motors:*", R2d2Ui.MotorChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
