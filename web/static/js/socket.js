@@ -58,6 +58,28 @@ socket.connect()
 let channel = socket.channel("motors:drive", {})
 let ldrive = $("#left-drive")
 let rdrive = $("#right-drive")
+let fdrive = $("#forward-drive")
+let bdrive = $("#backward-drive")
+
+fdrive.on("mousedown", event => {
+  console.log("sending drive_forward")
+  channel.push("drive_forward", {body: "test"})
+})
+
+bdrive.on("mousedown", event => {
+  console.log("sending drive_backward")
+  channel.push("drive_backward", {body: "test"})
+})
+
+fdrive.on("mouseup", event => {
+  console.log("sending stop_forward")
+  channel.push("stop_forward", {body: "test"})
+})
+
+bdrive.on("mouseup", event => {
+  console.log("sending stop_backward")
+  channel.push("stop_backward", {body: "test"})
+})
 
 ldrive.on("mousedown", event => {
   console.log("sending drive_left")
